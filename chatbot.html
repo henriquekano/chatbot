@@ -1,0 +1,172 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular.min.js"></script>
+		<script type="text/javascript" src="chatApp.js"></script>
+		<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+		<style type="text/css">
+			.message-who{
+				display: inline-block;
+				top: 17px;
+			}
+			.message-text{
+				display: inline-block;
+			}
+			.frame{
+				background-image: url("background.jpg");
+				position: absolute;
+				bottom: 0;
+				font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+				box-shadow: 0px 3px 50px 4px lightgrey;
+			}
+			.message{
+				padding: 10px;
+			}
+			.Bot-message{
+				float: left;
+				font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+			}
+			.Someone-message{
+				float: right;
+			}
+			.output{
+				height: 400;
+				overflow-y: scroll;
+				overflow-x: hidden;
+			}
+			.bubble-right, .bubble-left {
+				position: relative;
+				width: 250px;
+				height: auto;
+				padding: 0px;
+				background: #FFFFFF;
+				-webkit-border-radius: 10px;
+				-moz-border-radius: 10px;
+				border-radius: 10px;
+				padding: 20px;
+				top: 15px;
+				border: 1px solid lightgrey;
+			}
+
+
+			[type="submit"]{
+				float: right;
+			}
+			.avatar{
+				max-width: 70px;
+				border-radius: 35px;
+			}
+			select {
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				text-indent: 1px;
+				text-overflow: '';
+			}
+			.header{
+				height: 40px;
+			}
+			.close{
+				margin: 10px 0px 0px 0px;
+    			float: right;
+			}
+
+			::-webkit-scrollbar {
+			    width: 12px;
+			}
+			 
+			/* Track */
+			::-webkit-scrollbar-track {
+			    display: none;
+			}
+			 
+			/* Handle */
+			::-webkit-scrollbar-thumb {
+			    -webkit-border-radius: 10px;
+			    border-radius: 10px;
+			    background: rgba(0,0,0,0.2);
+			}
+			::-webkit-scrollbar-thumb:window-inactive {
+				background: rgba(0,0,0,0.1); 
+			}
+
+		</style>
+		<script type="text/javascript">
+			$(function(){
+				$("select").change(function(){
+					$(this).closest("form").find("[type='submit']").click();
+				});
+
+				$(".close").click(function(){
+					$(".content").slideToggle();
+				});
+			});
+			
+		</script>
+
+	</head>
+	<body>
+		<div class="container" ng-app="chatApp">
+			<div ng-controller="MainCtrl as ctrl" class="row">
+
+				<div class="frame col-sm-5 col-sm-offset-3">	
+					<div class="header">
+						<i class="glyphicon glyphicon-minus-sign close" style=""></i>
+					</div>
+					<div class="content">
+						<div scroll-bottom="messages" class="output">
+							
+							<div class="col-sm-12 message" ng-repeat="message in ctrl.messages">
+								<!-- Mensagem de bot -->
+								<div ng-if="message.who == 'Bot'">
+									<div class="message-who col-sm-2">
+										<img class="avatar" src="avatar.png"/>
+									</div>
+									
+									<div class="col-sm-10">
+										<div ng-bind="::message.text" class="bubble-right message-text {{message.who}}-message">
+											<div class="pointer">
+											</div>
+											<div class="pointerBorder" style="display: none">
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- Mensagem de alguem -->
+								<div ng-if="message.who == 'Someone'">
+									<div class="col-sm-12">
+										<div ng-bind="::message.text" class="bubble-left message-text {{message.who}}-message">
+											<div class="pointer">
+											</div>
+											<div class="pointerBorder" style="display: none">
+											</div>
+										</div>
+									</div>
+									<!--<div class="message-who col-sm-2">
+										<img class="avatar" src="avatar.jpg"/>
+									</div>-->
+								</div>
+							</div>
+						</div>
+
+						<hr>
+
+						<div class="input">
+							<form ng-submit="ctrl.nextStep(res)" class="form-inline">
+								<div class="input-group col-sm-12"> 
+									<select ng-model="res.text" class="form-control">
+										<option ng-repeat="response in ctrl.responses" ng-bind="response.text" value="{{response.text}}"></option>
+									</select>
+								</div>
+								<button type="submit" class="btn btn-primary hidden">Enviar</button>
+							</form>	
+						</div>
+					</div>
+
+
+				</div>
+				
+			</div>
+		</div>
+	</body>
+</html>
