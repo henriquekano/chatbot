@@ -117,9 +117,6 @@
 					$(this).closest("form").find("[type='submit']").click();
 				});
 
-				$(".close").click(function(){
-					$(".content").slideToggle();
-				});
 			});
 			
 		</script>
@@ -133,15 +130,14 @@
 				<div class="frame">	
 					<div class="header">
 						<h4 class="brand">
-								<b>
-									<div style="color: white; display: inline-block;">Lalala<div style="color: darkorange; display: inline-block;">BOT<div>
-								</b>
-						
+							<b>
+								<div style="color: white; display: inline-block;">Lalala<div style="color: darkorange; display: inline-block;">BOT<div>
+							</b>
 						</h4>
 						
-						<i class="glyphicon glyphicon-minus-sign close" style=""></i>
+						<i toggle="content" class="glyphicon glyphicon-minus-sign close" style=""></i>
 					</div>
-					<div class="content">
+					<div content class="content">
 						<div scroll-bottom="messages" class="output">
 							
 							<div class="message col-sm-12" ng-repeat="message in ctrl.messages">
@@ -179,7 +175,7 @@
 						<div class="input">
 							<form ng-submit="ctrl.nextStep(res)" class="form-inline">
 								<div class="input-group col-sm-12"> 
-									<select ng-model="res.text" class="form-control">
+									<select send-change ng-model="res.text" class="form-control">
 										<option ng-repeat="response in ctrl.responses" ng-bind="response.text" value="{{response.text}}"></option>
 									</select>
 								</div>

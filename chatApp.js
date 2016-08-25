@@ -11,13 +11,12 @@ angular.module('chatApp', [])
 			});
 		}
 	}
-}).directive('sendChange', function (){
+}).directive('toggle', function (){
 	return {
-		scope: {},
-		link: function(scope, element) {
-			$(element).change(function(){
-				console.log(element);
-				$(element).closest("form").find("[type='submit']").click();
+		link: function(scope, element, attrs) {
+			$(element).click(function(){
+
+				$("[" + attrs.toggle + "]").slideToggle();
 			});
 		}
 	}
