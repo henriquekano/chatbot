@@ -27,20 +27,27 @@ angular.module('chatApp', [])
 	self.BOT = "Bot";
 	self.SOMEONE = "Someone";
 
-	self.messages = [{who: self.BOT, text: "O que posso fazer por voce hoje?"}];
+	self.messages = [{who: self.BOT, text: "Bom dia! O que posso fazer por voce hoje?"}];
 	$scope.messages = self.messages;
-	self.responses = [{who: self.SOMEONE, text: "Quero comer"}];
+	self.responses = [{who: self.SOMEONE, text: "Informações sobre empreendimento"}, {who: self.SOMEONE, text: "Reclamações"}];
 	self.step = 0;
 
 	self.possibleResponses = [
-		[{who: self.SOMEONE, text: "Quero comer"}, {who: self.SOMEONE, text: "Não quero comer"}],
-		[{who: self.SOMEONE, text: "Sim!"}, {who: self.SOMEONE, text: "Não..."}],
-		[{who: self.SOMEONE, text: "Sim!"}, {who: self.SOMEONE, text: "Não..."}]	
+		[{who: self.SOMEONE, text: "Rio de Janeiro"}, {who: self.SOMEONE, text: "São Paulo"}],
+		[{who: self.SOMEONE, text: "1"}, {who: self.SOMEONE, text: "2"}, {who: self.SOMEONE, text: "3"}],
+		[{who: self.SOMEONE, text: "Vila agostina, por favor"}],
+		[{who: self.SOMEONE, text: "Sim"}, {who: self.SOMEONE, text: "Não"}],
+		[{who: self.SOMEONE, text: "Hoje"}, {who: self.SOMEONE, text: "Amanhã"}],
+		[{who: self.SOMEONE, text: "10 horas"}, {who: self.SOMEONE, text: "11 horas"}]
 	];
 	self.questions = [
-		{who: self.BOT, text: "Voce quer comer? Tem certeza?"},
-		{who: self.BOT, text: "Ok"},
-		{who: self.BOT, text: "Ok"}	
+		{who: self.BOT, text: "Terei pazer em ajudá-lo. Em que cidade você está procurando empreendimentos?"},
+		{who: self.BOT, text: "Você está procurando um apartemento com quantos quartos?"},
+		{who: self.BOT, text: "Encontrei empreendimentos nos seguintes bairros:\n - Vila agostina"},
+		{who: self.BOT, text: "Temos unidades na Reserva Juruá. Vamos marcar uma visita?"},
+		{who: self.BOT, text: "Quando você prefere?"},
+		{who: self.BOT, text: "Que horas?"},
+		{who: self.BOT, text: "Muito bom! Agradecemos a preferência! Estaremos a sua espera!"}
 	];
 
 	self.nextStep = function(newMessage){
@@ -55,8 +62,8 @@ angular.module('chatApp', [])
 		self.responses = [];
 		$timeout(function(){
 			self.messages.push(self.questions[self.step]);
-			self.step++;
 			self.responses = self.possibleResponses[self.step];
+			self.step++;
 		}, 3000);
 	}
 
